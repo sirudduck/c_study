@@ -300,7 +300,109 @@ C 언어는 버전이 있다 (C89, C99, C11, C17, C23 등).
 
 ---
 
-## 6. 전체 요약
+## 6. Visual Studio의 Solution과 Project — VS Code Workspace와 비교
+
+VS 2026을 처음 실행하면 **Solution(솔루션)** 과 **Project(프로젝트)** 라는 개념이 등장한다.  
+VS Code의 **Workspace(작업공간)** 와 비슷해 보이지만 구조와 역할이 다르다.
+
+### 6-1. VS Code의 Workspace — 폴더를 여는 것
+
+VS Code에서 Workspace는 단순히 **"이 폴더를 열어서 작업하겠다"** 는 의미다.  
+별도의 관리 파일 없이, 폴더 자체가 곧 작업 공간이 된다.
+
+```
+📁 my_c_work/          ← 이 폴더를 VS Code로 열면 = Workspace
+    hello.c
+    test.c
+    .vscode/
+        tasks.json     ← 컴파일 설정 (직접 작성)
+        launch.json    ← 디버거 설정 (직접 작성)
+```
+
+- 파일들 사이에 **공식적인 계층 구조가 없다**
+- `.c` 파일들은 그냥 폴더 안에 나란히 존재할 뿐이다
+- 컴파일 관계, 빌드 순서 등은 직접 `tasks.json`에 정의해야 한다
+
+### 6-2. Visual Studio의 Project — 빌드 단위
+
+VS 2026에서 **Project(프로젝트)** 는 **"하나의 실행 파일을 만들기 위한 파일들의 묶음"** 이다.  
+단순히 폴더를 여는 것이 아니라, 빌드에 필요한 모든 정보를 담은 **관리 파일이 따로 존재**한다.
+
+```
+📁 HelloWorld/
+    HelloWorld.vcxproj        ← 프로젝트 파일 (빌드 설정 자동 관리)
+    HelloWorld.vcxproj.filters
+    hello.c
+    main.c
+```
+
+`.vcxproj` 파일 안에는 다음이 자동으로 기록된다:
+- 이 프로젝트에 포함된 `.c` 파일 목록
+- 사용할 컴파일러(MSVC) 및 컴파일 옵션
+- 빌드 결과물(.exe)이 저장될 위치
+- 디버거 설정
+
+> **즉, VS Code에서 직접 작성해야 했던 `tasks.json`, `launch.json`의 역할을  
+> Visual Studio에서는 `.vcxproj` 파일이 자동으로 담당한다.**
+
+### 6-3. Visual Studio의 Solution — 프로젝트들의 묶음
+
+**Solution(솔루션)** 은 **여러 Project를 하나로 묶는 상위 개념**이다.
+
+```
+📁 MyProgram/
+    MyProgram.sln             ← 솔루션 파일 (프로젝트들을 관리)
+    📁 Calculator/
+        Calculator.vcxproj    ← 프로젝트 1: 계산기 실행 파일
+        calc.c
+    📁 MathLib/
+        MathLib.vcxproj       ← 프로젝트 2: 수학 라이브러리
+        math_utils.c
+```
+
+하나의 솔루션 안에 여러 프로젝트가 들어갈 수 있으며,  
+프로젝트끼리 서로 참조하거나 의존 관계를 설정할 수 있다.
+
+### 6-4. 계층 구조 비교
+
+```
+VS Code                         Visual Studio 2026
+──────────────────────          ──────────────────────────────
+Workspace (폴더)                Solution (.sln)
+    └── 파일들 (구조 없음)            └── Project A (.vcxproj)
+                                          └── source files (.c)
+                                      └── Project B (.vcxproj)
+                                          └── source files (.c)
+```
+
+### 6-5. 핵심 비교표
+
+| 항목 | VS Code Workspace | VS Solution | VS Project |
+|------|------------------|-------------|------------|
+| **실체** | 그냥 폴더 | `.sln` 파일 | `.vcxproj` 파일 |
+| **역할** | 작업할 폴더를 지정 | 여러 프로젝트를 묶음 | 실행 파일 하나를 위한 단위 |
+| **빌드 설정** | 직접 작성 필요 | 자동 관리 | 자동 관리 |
+| **계층** | 없음 (단층) | 최상위 | Solution 아래 |
+
+### 6-6. 지금 수업에서는?
+
+C 언어 입문 단계에서는 프로그램 하나 = 프로젝트 하나다.  
+솔루션과 프로젝트가 1:1로 대응되므로, 지금은 **"새 프로젝트 = 새 실습 파일 세트"** 로 이해하면 충분하다.
+
+```
+수업 실습 구조 예시:
+
+MyProgram.sln
+    └── HelloWorld (Project)      ← 1주차 실습
+    └── Calculator (Project)      ← 2주차 실습
+    └── ArrayPractice (Project)   ← 3주차 실습
+```
+
+각 프로젝트마다 독립된 `.exe`가 생성되며, 솔루션 탐색기에서 한눈에 관리할 수 있다.
+
+---
+
+## 7. 전체 요약
 
 ```
 [macOS]
@@ -334,4 +436,6 @@ C 언어는 버전이 있다 (C89, C99, C11, C17, C23 등).
 - GCC 공식: https://gcc.gnu.org/  
 - Clang 공식: https://clang.llvm.org/  
 - MSVC 공식: https://learn.microsoft.com/ko-kr/cpp/build/reference/compiler-options  
-- C 컴파일러 표준 지원 현황: https://en.cppreference.com/w/c/compiler_support
+- C 컴파일러 표준 지원 현황: https://en.cppreference.com/w/c/compiler_support  
+- VS Solution 및 Project 개념: https://learn.microsoft.com/ko-kr/visualstudio/ide/solutions-and-projects-in-visual-studio  
+- VS Code Workspace 개념: https://code.visualstudio.com/docs/editor/workspaces
