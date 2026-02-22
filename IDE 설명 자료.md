@@ -1,13 +1,23 @@
 # IDE, 컴파일러, 실행 파일 형식 비교
 
-> 이전 자료의 보완 및 확장판  
-> macOS의 Xcode, 실행 파일 형식의 차이, 주요 C 컴파일러 비교를 다룬다.
+---
+
+## 1. IDE란?
+
+**IDE = Integrated Development Environment (통합 개발 환경)**
+
+| 단어 | 의미 |
+|------|------|
+| **Integrated** | 통합된 — 여러 도구가 하나로 묶인 |
+| **Development** | 개발 |
+| **Environment** | 환경 |
+
+코딩에 필요한 편집기, 컴파일러, 디버거를 **하나의 프로그램 안에 통합**해 놓은 환경이다.  
+이름 그대로, 개발에 필요한 것들이 "통합"되어 있다는 뜻이다.
 
 ---
 
-## 1. OS별 기본 IDE — 수정
-
-이전 자료에서 "macOS는 기본 IDE가 없다"고 했는데, 이는 잘못된 설명이다.
+## 2. OS별 기본 IDE
 
 | 운영체제 | 기본(공식) IDE | 제공사 |
 |---------|--------------|--------|
@@ -36,12 +46,12 @@ iOS/macOS 앱 개발에 특화된 도구이기 때문이다.
 
 ---
 
-## 2. 실행 파일 형식 — 왜 OS마다 다른가?
+## 3. 실행 파일 형식 — 왜 OS마다 다른가?
 
 컴파일러가 C 코드를 번역하면 실행 파일이 만들어진다.  
 이 실행 파일의 **내부 구조(형식)가 OS마다 다르다.**
 
-### 2-1. 실행 파일이란?
+### 3-1. 실행 파일이란?
 
 실행 파일은 단순히 기계어 명령어들의 모음이 아니다.  
 OS가 프로그램을 메모리에 올리기 위해 필요한 **정보들이 함께 담긴 패키지**다.
@@ -67,7 +77,7 @@ OS가 프로그램을 메모리에 올리기 위해 필요한 **정보들이 함
 OS는 이 파일을 읽고, 헤더의 지시에 따라 메모리에 올린 뒤 실행한다.  
 형식이 다르면 **OS가 읽을 수 없다** — 이것이 .exe가 macOS에서 실행되지 않는 이유다.
 
-### 2-2. 각 OS의 실행 파일 형식
+### 3-2. 각 OS의 실행 파일 형식
 
 | 형식 | 정식 명칭 | 사용 OS | 확장자 |
 |------|---------|---------|------|
@@ -75,7 +85,7 @@ OS는 이 파일을 읽고, 헤더의 지시에 따라 메모리에 올린 뒤 �
 | **Mach-O** | Mach Object | macOS, iOS | 확장자 없음 또는 `.dylib` |
 | **ELF** | Executable and Linkable Format | Linux, Android | 확장자 없음 또는 `.so` |
 
-### 2-3. PE 형식 (Windows .exe)
+### 3-3. PE 형식 (Windows .exe)
 
 PE(Portable Executable)는 Windows에서 사용하는 실행 파일 형식이다.  
 Microsoft가 설계했으며, Windows OS의 로더(Loader)가 이 형식을 읽고 메모리에 올린다.
@@ -93,7 +103,7 @@ hello.exe 내부 구조 (간략화)
 
 - 공식 문서: https://learn.microsoft.com/ko-kr/windows/win32/debug/pe-format
 
-### 2-4. Mach-O 형식 (macOS)
+### 3-4. Mach-O 형식 (macOS)
 
 Mach-O는 Apple의 macOS, iOS에서 사용하는 실행 파일 형식이다.  
 이름은 운영체제 커널인 "Mach"에서 유래했다.
@@ -111,7 +121,7 @@ hello (Mach-O) 내부 구조 (간략화)
 
 - 공식 문서: https://developer.apple.com/documentation/xcode/mach-o-format-reference
 
-### 2-5. ELF 형식 (Linux)
+### 3-5. ELF 형식 (Linux)
 
 ELF는 Linux 및 대부분의 Unix 계열 OS에서 사용하는 형식이다.  
 Arduino를 포함한 많은 임베디드 시스템도 ELF를 사용한다.
@@ -130,7 +140,7 @@ hello (ELF) 내부 구조 (간략화)
 
 - 공식 명세: https://refspecs.linuxfoundation.org/elf/elf.pdf
 
-### 2-6. 실행 파일 형식 요약
+### 3-6. 실행 파일 형식 요약
 
 ```
 같은 C 코드라도...
@@ -144,12 +154,12 @@ hello (ELF) 내부 구조 (간략화)
 
 ---
 
-## 3. 주요 C 컴파일러 비교
+## 4. 주요 C 컴파일러 비교
 
 C 코드를 기계어로 번역하는 컴파일러는 여러 종류가 있다.  
 각각 개발 주체, 지원 OS, 특성이 다르다.
 
-### 3-1. 주요 컴파일러 한눈에 보기
+### 4-1. 주요 컴파일러 한눈에 보기
 
 | 컴파일러 | 개발사/관리 주체 | 주요 사용 OS | 무료 여부 |
 |---------|--------------|------------|---------|
@@ -159,7 +169,7 @@ C 코드를 기계어로 번역하는 컴파일러는 여러 종류가 있다.
 | **ICC/ICX** | Intel | Windows, Linux | 유료 (학생 무료) |
 | **TCC** | Fabrice Bellard 외 | Linux, Windows | 무료 |
 
-### 3-2. GCC (GNU Compiler Collection)
+### 4-2. GCC (GNU Compiler Collection)
 
 GCC는 1987년 Richard Stallman이 시작한 오픈소스 컴파일러다.  
 C 언어 교육 및 Linux 개발에서 가장 널리 사용된다.
@@ -175,7 +185,7 @@ gcc hello.c -o hello    # hello.c를 컴파일하여 hello 실행 파일 생성
 ./hello                 # 실행
 ```
 
-### 3-3. Clang (LLVM 기반)
+### 4-3. Clang (LLVM 기반)
 
 Clang은 LLVM 프로젝트의 C/C++ 컴파일러 프론트엔드다.  
 Apple이 macOS용으로 적극 채택하여 현재 Xcode의 기본 컴파일러다.
@@ -215,7 +225,7 @@ error: expected ';' after expression
 ```
 > Clang은 **어디에 무엇을 넣어야 하는지** 화살표로 직접 가리켜 준다.
 
-### 3-4. MSVC (Microsoft Visual C++ Compiler)
+### 4-4. MSVC (Microsoft Visual C++ Compiler)
 
 MSVC는 Microsoft가 개발한 Windows 전용 컴파일러다.  
 Visual Studio 2026 설치 시 함께 설치된다.
@@ -230,7 +240,7 @@ Visual Studio 2026 설치 시 함께 설치된다.
 // 별도 명령어 입력 없이 자동으로 처리
 ```
 
-### 3-5. ICC / ICX (Intel C++ Compiler)
+### 4-5. ICC / ICX (Intel C++ Compiler)
 
 Intel이 개발한 컴파일러로, Intel CPU에 최적화된 코드를 생성한다.
 
@@ -242,9 +252,9 @@ Intel이 개발한 컴파일러로, Intel CPU에 최적화된 코드를 생성�
 
 ---
 
-## 4. 컴파일러 상세 비교
+## 5. 컴파일러 상세 비교
 
-### 4-1. C 표준 지원 현황
+### 5-1. C 표준 지원 현황
 
 C 언어는 버전이 있다 (C89, C99, C11, C17, C23 등).  
 컴파일러마다 최신 표준 지원 여부가 다르다.
@@ -262,7 +272,7 @@ C 언어는 버전이 있다 (C89, C99, C11, C17, C23 등).
 
 - C 표준 현황 공식 참조: https://en.cppreference.com/w/c/compiler_support
 
-### 4-2. 오류 메시지 품질 비교
+### 5-2. 오류 메시지 품질 비교
 
 초보자 입장에서 중요한 항목이다.
 
@@ -272,7 +282,7 @@ C 언어는 버전이 있다 (C89, C99, C11, C17, C23 등).
 | **GCC** | 상세하지만 다소 길고 복잡 | ★★★☆☆ |
 | **MSVC** | 번호 기반, 공식 문서 참조 필요 | ★★★☆☆ |
 
-### 4-3. 플랫폼 지원 비교
+### 5-3. 플랫폼 지원 비교
 
 | 컴파일러 | Windows | macOS | Linux |
 |---------|---------|-------|-------|
@@ -280,7 +290,7 @@ C 언어는 버전이 있다 (C89, C99, C11, C17, C23 등).
 | **Clang** | ✅ | ✅ (기본) | ✅ |
 | **MSVC** | ✅ (전용) | ❌ | ❌ |
 
-### 4-4. 우리 수업 환경 정리
+### 5-4. 우리 수업 환경 정리
 
 | 환경 | 사용 IDE | 사용 컴파일러 | 실행 파일 형식 |
 |------|---------|------------|------------|
@@ -290,7 +300,7 @@ C 언어는 버전이 있다 (C89, C99, C11, C17, C23 등).
 
 ---
 
-## 5. 전체 요약
+## 6. 전체 요약
 
 ```
 [macOS]
