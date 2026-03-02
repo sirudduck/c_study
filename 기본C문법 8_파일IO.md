@@ -1,4 +1,4 @@
-# Session 09 - 파일 입출력 (File I/O)
+# Session 08 - 파일 입출력 (File I/O)
 
 ## 1. 문제 먼저 생각하기
 
