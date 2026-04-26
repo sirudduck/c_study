@@ -37,37 +37,35 @@ int load_students(const char *filename, Student *arr) {
     char line[LINE_SIZE] = { 0 };
     char *context = NULL;
     char *token = NULL;
+    int n = 0;
 
-    // 첫 줄: 학생 수 읽기
-    if (fgets(line, sizeof(line), fp) == NULL) {
-        fclose(fp);
-        return 0;
-    }
-    int n = (int)strtol(line, NULL, 10);
-
-    // 나머지 줄: 학생 데이터 읽기
-    for (int i = 0; i < n; i++) {
-        if (fgets(line, sizeof(line), fp) == NULL) break;
-
+    // EOF까지 한 줄씩 읽기
+    while (fgets(line, sizeof(line), fp) != NULL && n < MAX_STUDENTS) {
         // 줄바꿈 문자 제거
         line[strcspn(line, "\n")] = '\0';
+
+        // 빈 줄 건너뛰기
+        if (line[0] == '\0') continue;
+
         context = NULL;
 
-        // 이름 (쉼표 전까지)
+        // 이름
         token = strtok_s(line, ",", &context);
         if (token == NULL) continue;
-        strncpy(arr[i].name, token, sizeof(arr[i].name) - 1);
-        arr[i].name[sizeof(arr[i].name) - 1] = '\0';
+        strncpy(arr[n].name, token, sizeof(arr[n].name) - 1);
+        arr[n].name[sizeof(arr[n].name) - 1] = '\0';
 
         // 학번
         token = strtok_s(NULL, ",", &context);
         if (token == NULL) continue;
-        arr[i].id = (int)strtol(token, NULL, 10);
+        arr[n].id = (int)strtol(token, NULL, 10);
 
         // 점수
         token = strtok_s(NULL, ",", &context);
         if (token == NULL) continue;
-        arr[i].score = strtof(token, NULL);
+        arr[n].score = strtof(token, NULL);
+
+        n++;
     }
 
     fclose(fp);
@@ -91,7 +89,6 @@ void save_students(const char *filename, Student *arr, int n) {
         printf("저장 실패: 파일을 열 수 없습니다.\n");
         return;
     }
-    fprintf(fp, "%d\n", n);
     for (int i = 0; i < n; i++) {
         fprintf(fp, "%s,%d,%.1f\n", arr[i].name, arr[i].id, arr[i].score);
     }
@@ -125,7 +122,6 @@ int main(void) {
 ### 입력 파일 형식 (`students.txt`)
 
 ```
-5
 김민준,20240001,92.5
 이서연,20240002,85.0
 박지호,20240003,78.5
@@ -201,7 +197,6 @@ void save_students(const char *filename, Student *arr, int n);
 저장 결과 예시 (`students.txt`):
 
 ```
-5
 김민준,20240001,92.5
 이서연,20240002,85.0
 박지호,20240003,78.5
