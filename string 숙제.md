@@ -11,6 +11,7 @@
 ## 예제 코드: 학생 데이터 파일 파서
 
 ```c
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
