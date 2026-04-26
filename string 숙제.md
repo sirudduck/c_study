@@ -101,17 +101,21 @@ void save_students(const char *filename, Student *arr, int n) {
 
 int main(void) {
     Student arr[MAX_STUDENTS];
+    int n = 5;
 
-    // 1. 원본 파일 읽기
-    int n = load_students("students.txt", arr);
-    print_students(arr, n);
+    // 1. 학생 데이터 직접 입력
+    strcpy(arr[0].name, "김민준"); arr[0].id = 20240001; arr[0].score = 92.5f;
+    strcpy(arr[1].name, "이서연"); arr[1].id = 20240002; arr[1].score = 85.0f;
+    strcpy(arr[2].name, "박지호"); arr[2].id = 20240003; arr[2].score = 78.5f;
+    strcpy(arr[3].name, "최유나"); arr[3].id = 20240004; arr[3].score = 96.0f;
+    strcpy(arr[4].name, "정하은"); arr[4].id = 20240005; arr[4].score = 63.5f;
 
-    // 2. output.txt에 저장
-    save_students("output.txt", arr, n);
+    // 2. students.txt에 저장
+    save_students("students.txt", arr, n);
 
-    // 3. output.txt에서 다시 불러오기
+    // 3. students.txt에서 다시 불러오기
     Student arr2[MAX_STUDENTS];
-    int n2 = load_students("output.txt", arr2);
+    int n2 = load_students("students.txt", arr2);
     print_students(arr2, n2);
 
     return 0;
@@ -121,10 +125,12 @@ int main(void) {
 ### 입력 파일 형식 (`students.txt`)
 
 ```
-3
-Alice,20240001,97.5
-Bob,20240002,88.0
-Charlie,20240003,73.0
+5
+김민준,20240001,92.5
+이서연,20240002,85.0
+박지호,20240003,78.5
+최유나,20240004,96.0
+정하은,20240005,63.5
 ```
 
 ### 핵심 함수 정리
@@ -192,13 +198,15 @@ Bob | 20240002 | 88.0
 void save_students(const char *filename, Student *arr, int n);
 ```
 
-저장 결과 예시 (`output.txt`):
+저장 결과 예시 (`students.txt`):
 
 ```
-3
-Alice,20240001,97.5
-Bob,20240002,88.0
-Charlie,20240003,73.0
+5
+김민준,20240001,92.5
+이서연,20240002,85.0
+박지호,20240003,78.5
+최유나,20240004,96.0
+정하은,20240005,63.5
 ```
 
 ---
