@@ -34,9 +34,9 @@ int load_students(const char *filename, Student *arr) {
         return 0;
     }
 
-    char line[LINE_SIZE];
+    char line[LINE_SIZE] = { 0 };
     char *context = NULL;
-    char *token;
+    char *token = NULL;
 
     // 첫 줄: 학생 수 읽기
     if (fgets(line, sizeof(line), fp) == NULL) {
@@ -100,7 +100,7 @@ void save_students(const char *filename, Student *arr, int n) {
 }
 
 int main(void) {
-    Student arr[MAX_STUDENTS];
+    Student arr[MAX_STUDENTS] = { 0 };
     int n = 5;
 
     // 1. 학생 데이터 직접 입력
@@ -114,7 +114,7 @@ int main(void) {
     save_students("students.txt", arr, n);
 
     // 3. students.txt에서 다시 불러오기
-    Student arr2[MAX_STUDENTS];
+    Student arr2[MAX_STUDENTS] = { 0 };
     int n2 = load_students("students.txt", arr2);
     print_students(arr2, n2);
 
