@@ -12,6 +12,7 @@
 
 ```c
 #define _CRT_SECURE_NO_WARNINGS
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -83,10 +84,36 @@ void print_students(Student *arr, int n) {
     printf("\n");
 }
 
+// 학생 데이터를 파일에 저장
+void save_students(const char *filename, Student *arr, int n) {
+    FILE *fp = fopen(filename, "w");
+    if (fp == NULL) {
+        printf("저장 실패: 파일을 열 수 없습니다.\n");
+        return;
+    }
+    fprintf(fp, "%d\n", n);
+    for (int i = 0; i < n; i++) {
+        fprintf(fp, "%s,%d,%.1f\n", arr[i].name, arr[i].id, arr[i].score);
+    }
+    fclose(fp);
+    printf("%d명 저장 완료 → %s\n", n, filename);
+}
+
 int main(void) {
     Student arr[MAX_STUDENTS];
+
+    // 1. 원본 파일 읽기
     int n = load_students("students.txt", arr);
     print_students(arr, n);
+
+    // 2. output.txt에 저장
+    save_students("output.txt", arr, n);
+
+    // 3. output.txt에서 다시 불러오기
+    Student arr2[MAX_STUDENTS];
+    int n2 = load_students("output.txt", arr2);
+    print_students(arr2, n2);
+
     return 0;
 }
 ```
