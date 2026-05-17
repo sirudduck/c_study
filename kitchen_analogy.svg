@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowBlock" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto">
+      <path d="M0,0 L14,7 L0,14 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#111827">
+    저장 클래스 — 주방 비유 (Storage Class as a Kitchen Analogy)
+  </text>
+
+  <!-- Kitchen 1 (file1.c) -->
+  <rect x="40" y="60" width="380" height="420" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="230" y="85" text-anchor="middle" font-size="16" font-weight="bold" fill="#92400e">🍳 주방 1 (file1.c)</text>
+
+  <!-- Public shelf (global) -->
+  <rect x="60" y="105" width="340" height="55" rx="6" fill="#fde68a" stroke="#b45309"/>
+  <text x="230" y="128" text-anchor="middle" font-size="13" font-weight="bold" fill="#7c2d12">공용 양념 선반 (전역 변수)</text>
+  <text x="230" y="148" text-anchor="middle" font-size="11" fill="#7c2d12" font-style="italic">int g_shared = 10;  ← 다른 주방도 접근 가능</text>
+
+  <!-- Private shelf (static global) -->
+  <rect x="60" y="175" width="340" height="55" rx="6" fill="#fcd34d" stroke="#b45309"/>
+  <text x="230" y="198" text-anchor="middle" font-size="13" font-weight="bold" fill="#7c2d12">우리 주방 전용 양념 (static 전역)</text>
+  <text x="230" y="218" text-anchor="middle" font-size="11" fill="#7c2d12" font-style="italic">static int g_private = 5;  ← 옆 주방 차단</text>
+
+  <!-- Chef area -->
+  <rect x="60" y="250" width="340" height="210" rx="6" fill="#fef9c3" stroke="#a16207" stroke-dasharray="4,3"/>
+  <text x="230" y="273" text-anchor="middle" font-size="13" font-weight="bold" fill="#713f12">👨‍🍳 요리사 (함수)</text>
+
+  <!-- Cutting board (local) -->
+  <rect x="80" y="290" width="300" height="55" rx="6" fill="#fff7ed" stroke="#c2410c"/>
+  <text x="230" y="312" text-anchor="middle" font-size="12" font-weight="bold" fill="#9a3412">🔪 도마 위 재료 (지역 변수, auto)</text>
+  <text x="230" y="330" text-anchor="middle" font-size="10" fill="#9a3412" font-style="italic">int a = 0;  ← 요리 끝나면 치움</text>
+
+  <!-- Drawer (static local) -->
+  <rect x="80" y="360" width="300" height="55" rx="6" fill="#fed7aa" stroke="#c2410c"/>
+  <text x="230" y="382" text-anchor="middle" font-size="12" font-weight="bold" fill="#9a3412">🗄️ 서랍 속 양념통 (static 지역)</text>
+  <text x="230" y="400" text-anchor="middle" font-size="10" fill="#9a3412" font-style="italic">static int b = 0;  ← 요리 끝나도 보관</text>
+
+  <!-- Const tag -->
+  <g>
+    <rect x="80" y="425" width="300" height="28" rx="6" fill="#fee2e2" stroke="#dc2626"/>
+    <text x="230" y="444" text-anchor="middle" font-size="11" font-weight="bold" fill="#991b1b">🚫 const = '손대지 마시오' 라벨</text>
+  </g>
+
+  <!-- Kitchen 2 (file2.c) -->
+  <rect x="480" y="60" width="380" height="420" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="670" y="85" text-anchor="middle" font-size="16" font-weight="bold" fill="#1e3a8a">🍳 주방 2 (file2.c)</text>
+
+  <!-- extern reference -->
+  <rect x="500" y="105" width="340" height="55" rx="6" fill="#bfdbfe" stroke="#1e40af"/>
+  <text x="670" y="128" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e3a8a">📢 "옆 주방에 있다고 알림"</text>
+  <text x="670" y="148" text-anchor="middle" font-size="11" fill="#1e3a8a" font-style="italic">extern int g_shared;  ← 선언만, 메모리 X</text>
+
+  <!-- Blocked access to static -->
+  <rect x="500" y="175" width="340" height="55" rx="6" fill="#fecaca" stroke="#dc2626" stroke-dasharray="4,3"/>
+  <text x="670" y="198" text-anchor="middle" font-size="13" font-weight="bold" fill="#991b1b">❌ 접근 불가</text>
+  <text x="670" y="218" text-anchor="middle" font-size="11" fill="#991b1b" font-style="italic">extern int g_private;  → 링크 에러</text>
+
+  <!-- Local explanation box -->
+  <rect x="500" y="250" width="340" height="210" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-dasharray="4,3"/>
+  <text x="670" y="275" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e3a8a">📌 핵심 정리</text>
+
+  <text x="520" y="305" font-size="11" fill="#1e3a8a">• 스코프(Scope): 어디서 보이는가</text>
+  <text x="520" y="325" font-size="11" fill="#1e3a8a">• 수명(Lifetime): 언제까지 살아있는가</text>
+  <text x="520" y="350" font-size="11" font-weight="bold" fill="#1e3a8a">→ static 지역:</text>
+  <text x="540" y="368" font-size="11" fill="#1e3a8a">스코프는 좁게, 수명은 길게</text>
+  <text x="520" y="390" font-size="11" font-weight="bold" fill="#1e3a8a">→ static 전역:</text>
+  <text x="540" y="408" font-size="11" fill="#1e3a8a">파일 외부에 숨김 (캡슐화)</text>
+  <text x="520" y="430" font-size="11" font-weight="bold" fill="#1e3a8a">→ extern:</text>
+  <text x="540" y="448" font-size="11" fill="#1e3a8a">"다른 곳에 있다" 는 약속</text>
+
+  <!-- Arrow: file2 → file1 (extern access) -->
+  <path d="M 500 130 Q 450 130 420 130" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Arrow: blocked -->
+  <path d="M 500 200 Q 450 200 420 200" stroke="#dc2626" stroke-width="2" fill="none" stroke-dasharray="6,4" marker-end="url(#arrowBlock)"/>
+  <text x="445" y="195" font-size="13" font-weight="bold" fill="#dc2626">✗</text>
+</svg>
